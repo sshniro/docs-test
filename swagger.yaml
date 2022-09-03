@@ -1,0 +1,1960 @@
+definitions:
+  amount.Amount:
+    properties:
+      currency:
+        example: EUR
+        type: string
+      value:
+        example: 5240
+        type: integer
+    required:
+    - currency
+    - value
+    type: object
+  amount.In:
+    properties:
+      currency:
+        example: EUR
+        type: string
+      value:
+        example: 5240.12
+        type: number
+    type: object
+  apis.Details:
+    properties:
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  apis.ErrResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  apis.HealthCheckResponse:
+    properties:
+      description:
+        type: string
+      services:
+        $ref: '#/definitions/apis.Services'
+      statuscode:
+        type: integer
+    type: object
+  apis.In:
+    properties:
+      clientid:
+        example: Ref-1234
+        type: string
+    required:
+    - clientid
+    type: object
+  apis.PaymentProvider:
+    properties:
+      baseAPIURL:
+        example: http://localhost:8081/api/adyen
+        type: string
+      dashboardProdURL:
+        example: http://localhost:8081/dashboard/adyen
+        type: string
+      dashboardTestURL:
+        example: http://localhost:8081/dashboard/adyen
+        type: string
+      name:
+        example: Adyen
+        type: string
+    required:
+    - baseAPIURL
+    - dashboardProdURL
+    - dashboardTestURL
+    - name
+    type: object
+  apis.Res:
+    properties:
+      url:
+        type: string
+    type: object
+  apis.Response:
+    properties:
+      key:
+        type: string
+    required:
+    - key
+    type: object
+  apis.Services:
+    properties:
+      postgres:
+        $ref: '#/definitions/apis.Details'
+      reddis:
+        $ref: '#/definitions/apis.Details'
+    type: object
+  apis.TokenIn:
+    properties:
+      ciphertext:
+        example: gfgdgffgc
+        type: string
+      clientid:
+        example: Ref-1234
+        type: string
+    required:
+    - ciphertext
+    - clientid
+    type: object
+  authzrequest.In:
+    properties:
+      accountInfo:
+        $ref: '#/definitions/shopper.AccountInfoIn'
+      actionToken:
+        type: string
+      amount:
+        $ref: '#/definitions/amount.In'
+      authzReceiptReference:
+        type: string
+      bank:
+        $ref: '#/definitions/paymentmethod.BankIn'
+      billingAddress:
+        $ref: '#/definitions/shopper.AddressIn'
+      browserInfo:
+        $ref: '#/definitions/deviceinfo.BrowserInfoIn'
+      card:
+        $ref: '#/definitions/paymentmethod.CardIn'
+      deliveryAddress:
+        $ref: '#/definitions/shopper.AddressIn'
+      ideal:
+        $ref: '#/definitions/paymentmethod.IdealIn'
+      installment:
+        $ref: '#/definitions/authzrequest.InstallmentIn'
+      klarna:
+        $ref: '#/definitions/paymentmethod.KlarnaIn'
+      machineIdentifier:
+        $ref: '#/definitions/deviceinfo.MachineIdentifierIn'
+      merchantReference:
+        example: merchant1
+        type: string
+      order:
+        $ref: '#/definitions/order.In'
+      orderPayloadReference:
+        type: string
+      sepa:
+        $ref: '#/definitions/paymentmethod.SEPAInOut'
+      shopper:
+        $ref: '#/definitions/shopper.In'
+      sofort:
+        $ref: '#/definitions/paymentmethod.SofortIn'
+      threeDSRequestData:
+        $ref: '#/definitions/authzrequest.ThreeDsRequestIn'
+      uatp:
+        $ref: '#/definitions/paymentmethod.UATPIn'
+      wallet:
+        $ref: '#/definitions/paymentmethod.WalletIn'
+    type: object
+  authzrequest.Installment:
+    properties:
+      plan:
+        example: monthly
+        type: string
+      value:
+        example: "200"
+        type: string
+    required:
+    - plan
+    - value
+    type: object
+  authzrequest.InstallmentIn:
+    properties:
+      plan:
+        example: monthly
+        type: string
+      value:
+        example: "200"
+        type: string
+    required:
+    - plan
+    - value
+    type: object
+  authzrequest.Out:
+    properties:
+      accountInfo:
+        $ref: '#/definitions/shopper.AccountInfo'
+      amount:
+        $ref: '#/definitions/amount.Amount'
+      bank:
+        $ref: '#/definitions/paymentmethod.Bank'
+      billingAddress:
+        $ref: '#/definitions/shopper.AddressOut'
+      browserInfo:
+        $ref: '#/definitions/deviceinfo.BrowserInfo'
+      card:
+        $ref: '#/definitions/paymentmethod.CardOut'
+      createdAt:
+        type: string
+      deliveryAddress:
+        $ref: '#/definitions/shopper.AddressOut'
+      id:
+        type: integer
+      ideal:
+        $ref: '#/definitions/paymentmethod.IdealOut'
+      installment:
+        $ref: '#/definitions/authzrequest.Installment'
+      klarna:
+        $ref: '#/definitions/paymentmethod.KlarnaOut'
+      machineIdentifier:
+        $ref: '#/definitions/deviceinfo.MachineIdentifier'
+      order:
+        $ref: '#/definitions/order.Out'
+      paymentMethod:
+        $ref: '#/definitions/paymentmethod.Out'
+      sepa:
+        $ref: '#/definitions/paymentmethod.SEPAOut'
+      shopper:
+        $ref: '#/definitions/shopper.Out'
+      sofort:
+        $ref: '#/definitions/paymentmethod.SofortOut'
+      stage:
+        type: string
+      status:
+        type: string
+      threeDSRequestData:
+        $ref: '#/definitions/authzrequest.Request3DS'
+      threeDsIndicator:
+        type: string
+      updatedAt:
+        type: string
+      wallet:
+        $ref: '#/definitions/paymentmethod.WalletOut'
+    type: object
+  authzrequest.Request3DS:
+    properties:
+      deviceSession:
+        type: string
+      eci:
+        type: string
+      issuer3dsResp:
+        type: string
+      returnURL:
+        type: string
+      session3ds:
+        type: string
+      transactionID:
+        type: string
+      version:
+        type: string
+    type: object
+  authzrequest.ThreeDsRequestIn:
+    properties:
+      deviceSession:
+        type: string
+      eci:
+        type: string
+      issuer3dsResp:
+        type: string
+      returnURL:
+        type: string
+      session3ds:
+        type: string
+      transactionID:
+        type: string
+      version:
+        type: string
+    type: object
+  authzresponse.Out:
+    properties:
+      authzID:
+        type: integer
+      pspID:
+        type: integer
+      pspName:
+        type: string
+      pspReference:
+        example: pi92832xywe
+        type: string
+      receiptReference:
+        example: ADYKW9K23
+        type: string
+      refusalReason:
+        example: Invalid Card provided
+        type: string
+      response3Ds:
+        $ref: '#/definitions/authzresponse.Response3ds'
+      status:
+        example: completed
+        type: string
+    required:
+    - authzID
+    - pspID
+    - pspName
+    - pspReference
+    - receiptReference
+    - refusalReason
+    - status
+    type: object
+  authzresponse.OutDetail:
+    properties:
+      pspReference:
+        example: JUWFGLCF
+        type: string
+      receiptReference:
+        example: ADYKW9K23
+        type: string
+      refusalReason:
+        example: Invalid Card provided
+        type: string
+      status:
+        example: completed
+        type: string
+    required:
+    - pspReference
+    - receiptReference
+    - refusalReason
+    - status
+    type: object
+  authzresponse.Response3ds:
+    properties:
+      downgraded:
+        type: boolean
+      eci:
+        type: string
+      enrolled:
+        type: string
+      reference:
+        type: string
+      token:
+        type: string
+      transactionID:
+        type: string
+      url:
+        type: string
+      version:
+        type: string
+    type: object
+  callback.In:
+    properties:
+      createdAt:
+        type: string
+      fullData:
+        type: string
+      id:
+        type: integer
+      receiptReference:
+        type: string
+      updatedAt:
+        type: string
+    required:
+    - createdAt
+    - fullData
+    - id
+    - updatedAt
+    type: object
+  cancel.In:
+    properties:
+      authzReference:
+        example: 54trG7hthOD
+        type: string
+      reason:
+        example: duplicate
+        type: string
+      reasonDescription:
+        example: product not needed
+        type: string
+      reference:
+        example: CancelRef1
+        type: string
+    required:
+    - authzReference
+    - reference
+    type: object
+  cancel.Out:
+    properties:
+      pspReference:
+        type: string
+      receiptReference:
+        example: Ref-1234
+        type: string
+      refusalReason:
+        example: rejected
+        type: string
+      status:
+        example: approved
+        type: string
+    required:
+    - receiptReference
+    - status
+    type: object
+  capture.In:
+    properties:
+      amount:
+        $ref: '#/definitions/amount.In'
+      authzReference:
+        example: 54trG7hthOD
+        type: string
+      reference:
+        example: CapRef1
+        type: string
+    required:
+    - amount
+    - authzReference
+    - reference
+    type: object
+  capture.Out:
+    properties:
+      pspReference:
+        type: string
+      receiptReference:
+        example: Ref-1234
+        type: string
+      refusalReason:
+        example: rejected
+        type: string
+      status:
+        example: approved
+        type: string
+    required:
+    - receiptReference
+    - status
+    type: object
+  deviceinfo.BrowserInfo:
+    properties:
+      acceptHeader:
+        example: EN
+        type: string
+      colorDepth:
+        example: 32000
+        type: integer
+      ip:
+        example: 192.168.12.1
+        type: string
+      javaEnabled:
+        example: true
+        type: boolean
+      jsEnabled:
+        description: https://github.com/go-playground/validator/issues/319
+        example: true
+        type: boolean
+      language:
+        example: EN
+        type: string
+      name:
+        example: Firefox
+        type: string
+      screenHeight:
+        example: 580
+        type: integer
+      screenWidth:
+        example: 443
+        type: integer
+      timezoneOffset:
+        example: 0
+        type: integer
+      userAgent:
+        example: EN
+        type: string
+      version:
+        example: "15"
+        type: string
+    required:
+    - acceptHeader
+    - colorDepth
+    - javaEnabled
+    - jsEnabled
+    - language
+    - name
+    - screenHeight
+    - screenWidth
+    - userAgent
+    - version
+    type: object
+  deviceinfo.BrowserInfoIn:
+    properties:
+      acceptHeader:
+        example: EN
+        type: string
+      colorDepth:
+        example: 32000
+        type: integer
+      ip:
+        example: 192.168.12.1
+        type: string
+      javaEnabled:
+        example: true
+        type: boolean
+      jsEnabled:
+        description: https://github.com/go-playground/validator/issues/319
+        example: true
+        type: boolean
+      language:
+        example: EN
+        type: string
+      name:
+        example: Firefox
+        type: string
+      screenHeight:
+        example: 580
+        type: integer
+      screenWidth:
+        example: 443
+        type: integer
+      timezoneOffset:
+        example: 0
+        type: integer
+      userAgent:
+        example: EN
+        type: string
+      version:
+        example: "15"
+        type: string
+    required:
+    - acceptHeader
+    - colorDepth
+    - javaEnabled
+    - jsEnabled
+    - language
+    - name
+    - screenHeight
+    - screenWidth
+    - userAgent
+    - version
+    type: object
+  deviceinfo.MachineIdentifier:
+    properties:
+      manufacturerNumber:
+        example: 9239823JW
+        type: string
+      osName:
+        example: OSX
+        type: string
+      osPlatform:
+        example: x64
+        type: string
+      osVersion:
+        example: "13.0"
+        type: string
+    required:
+    - osName
+    - osPlatform
+    - osVersion
+    type: object
+  deviceinfo.MachineIdentifierIn:
+    properties:
+      manufacturerNumber:
+        example: 9239823JW
+        type: string
+      osName:
+        example: OSX
+        type: string
+      osPlatform:
+        example: x64
+        type: string
+      osVersion:
+        example: "13.0"
+        type: string
+    required:
+    - osName
+    - osPlatform
+    - osVersion
+    type: object
+  order.In:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/order.ItemIn'
+        type: array
+      reference:
+        example: Jiweok028lase
+        type: string
+      shipping:
+        $ref: '#/definitions/amount.In'
+      source:
+        example: moto
+        type: string
+      subTotal:
+        $ref: '#/definitions/amount.In'
+      tax:
+        $ref: '#/definitions/amount.In'
+    required:
+    - reference
+    type: object
+  order.ItemIn:
+    properties:
+      amount:
+        $ref: '#/definitions/amount.In'
+      name:
+        example: item 1
+        type: string
+      qty:
+        example: 5
+        type: integer
+    required:
+    - amount
+    - name
+    - qty
+    type: object
+  order.Out:
+    properties:
+      reference:
+        example: Jiweok028lase
+        type: string
+    required:
+    - reference
+    type: object
+  payment.Detail:
+    properties:
+      amount:
+        type: string
+      authzRequest:
+        $ref: '#/definitions/authzrequest.Out'
+      authzResponse:
+        $ref: '#/definitions/authzresponse.OutDetail'
+      pspDashboardURL:
+        type: string
+    type: object
+  payment.Payment:
+    properties:
+      date:
+        example: "2021-08-11 13:08\t"
+        type: string
+      id:
+        example: 45
+        type: integer
+      method:
+        example: Visa (Credit Card)
+        type: string
+      psp:
+        example: Stripe
+        type: string
+      pspReference:
+        example: 1234-3456-3456
+        type: string
+      stage:
+        example: Authorisation
+        type: string
+      status:
+        example: Authorised
+        type: string
+      total:
+        example: EUR 12.00
+        type: string
+    required:
+    - date
+    - id
+    - method
+    - psp
+    - pspReference
+    - stage
+    - status
+    - total
+    type: object
+  paymentmethod.Bank:
+    properties:
+      accountNumber:
+        example: DE89370400440532013000
+        type: string
+      accountType:
+        type: string
+      bic:
+        example: CHASUS33
+        type: string
+      cardType:
+        example: Credit
+        type: string
+      countryCode:
+        example: DE
+        type: string
+      iban:
+        example: DE89370400440532013000
+        type: string
+      name:
+        example: John Doe
+        type: string
+      ownerName:
+        example: John Jill Doe
+        type: string
+      paymentType:
+        type: string
+      returnUrl:
+        type: string
+      routingNumber:
+        type: integer
+    required:
+    - accountNumber
+    - bic
+    - cardType
+    - countryCode
+    - iban
+    - name
+    - ownerName
+    type: object
+  paymentmethod.BankIn:
+    properties:
+      accountNumber:
+        example: DE89370400440532013000
+        type: string
+      accountType:
+        type: string
+      bic:
+        example: CHASUS33
+        type: string
+      cardType:
+        example: Credit
+        type: string
+      countryCode:
+        example: DE
+        type: string
+      iban:
+        example: DE89370400440532013000
+        type: string
+      name:
+        example: John Doe
+        type: string
+      ownerName:
+        example: John Jill Doe
+        type: string
+      paymentType:
+        type: string
+      returnUrl:
+        type: string
+      routingNumber:
+        type: integer
+    required:
+    - accountNumber
+    - bic
+    - cardType
+    - countryCode
+    - iban
+    - name
+    - ownerName
+    type: object
+  paymentmethod.CardIn:
+    properties:
+      token:
+        example: 12345-34566-4567
+        type: string
+      type:
+        example: visa
+        type: string
+    required:
+    - token
+    - type
+    type: object
+  paymentmethod.CardOut:
+    properties:
+      cardType:
+        type: string
+      currency:
+        type: string
+      cvc:
+        type: string
+      expiryMonth:
+        type: string
+      expiryYear:
+        type: string
+      holderName:
+        type: string
+      issuer:
+        type: string
+      number:
+        type: string
+    type: object
+  paymentmethod.IdealIn:
+    properties:
+      bank:
+        example: bunq
+        type: string
+      bic:
+        example: Olowolayemo Olaosebikan
+        type: string
+      clientSecret:
+        example: some_secret_for_payment
+        type: string
+      iban:
+        example: 12345-34566-4567
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+      returnURL:
+        example: jumia.com.ng
+        type: string
+      verifiedName:
+        example: Nigeria
+        type: string
+    required:
+    - bank
+    - bic
+    - iban
+    - returnURL
+    - verifiedName
+    type: object
+  paymentmethod.IdealOut:
+    properties:
+      bank:
+        example: olowoola@mail.com
+        type: string
+      bic:
+        example: Olowolayemo Olaosebikan
+        type: string
+      iban:
+        example: 12345-34566-4567
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+      verifiedName:
+        example: Nigeria
+        type: string
+    type: object
+  paymentmethod.KlarnaIn:
+    properties:
+      clientSecret:
+        example: some_secret_for_payment
+        type: string
+      country:
+        example: Deutschland
+        type: string
+      email:
+        example: jimoks@galos.com
+        type: string
+      name:
+        example: Jimoks Galos
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+      returnURL:
+        example: jumia.com.ng
+        type: string
+    required:
+    - country
+    - email
+    - name
+    - returnURL
+    type: object
+  paymentmethod.KlarnaOut:
+    properties:
+      country:
+        example: Deutschland
+        type: string
+      email:
+        example: jimoks@galos.com
+        type: string
+      name:
+        example: Jimoks Galos
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+    type: object
+  paymentmethod.Out:
+    properties:
+      name:
+        example: Card
+        type: string
+    required:
+    - name
+    type: object
+  paymentmethod.SEPAInOut:
+    properties:
+      address1:
+        example: 45 Onigbongbo Street, Ikeja
+        type: string
+      address2:
+        example: 45 Onigbongbo Street, Ikeja
+        type: string
+      city1:
+        example: Lagos
+        type: string
+      city2:
+        example: Lagos
+        type: string
+      clientSecret:
+        example: some_secret_for_payment
+        type: string
+      country:
+        example: Nigeria
+        type: string
+      email:
+        example: olowoola@mail.com
+        type: string
+      iban:
+        example: 12345-34566-4567
+        type: string
+      name:
+        example: Olowolayemo Olaosebikan
+        type: string
+      postal1:
+        example: "87692"
+        type: string
+      postal2:
+        example: "87692"
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+    required:
+    - address1
+    - city1
+    - country
+    - email
+    - iban
+    - name
+    - postal1
+    type: object
+  paymentmethod.SEPAOut:
+    properties:
+      address1:
+        example: 45 Onigbongbo Street, Ikeja
+        type: string
+      address2:
+        example: 45 Onigbongbo Street, Ikeja
+        type: string
+      city1:
+        example: Lagos
+        type: string
+      city2:
+        example: Lagos
+        type: string
+      clientSecret:
+        example: some_secret_for_payment
+        type: string
+      country:
+        example: Nigeria
+        type: string
+      email:
+        example: olowoola@mail.com
+        type: string
+      iban:
+        example: 12345-34566-4567
+        type: string
+      name:
+        example: Olowolayemo Olaosebikan
+        type: string
+      postal1:
+        example: "87692"
+        type: string
+      postal2:
+        example: "87692"
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+    type: object
+  paymentmethod.SofortIn:
+    properties:
+      clientSecret:
+        example: some_secret_for_payment
+        type: string
+      country:
+        example: Deutschland
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+      returnURL:
+        example: some_url
+        type: string
+    required:
+    - country
+    type: object
+  paymentmethod.SofortOut:
+    properties:
+      country:
+        example: Deutschland
+        type: string
+      providerReference:
+        example: some_provider_ref
+        type: string
+    type: object
+  paymentmethod.UATPIn:
+    properties:
+      accountNumber:
+        type: string
+      approvalCodeLength:
+        type: string
+      cardAcceptorIdentificationCode:
+        type: string
+      cardExpiryDate:
+        type: string
+      emailAddress:
+        type: string
+      institutionIdentificationCodeAcquiring:
+        type: string
+      issueDate:
+        type: string
+      issuingCarrierCode:
+        type: string
+      passengerName:
+        type: string
+      processingCode:
+        type: string
+      recordLocatorPNR:
+        type: string
+      restrictedTicket:
+        type: string
+      salesSource:
+        type: string
+      systemTraceAuditNumber:
+        type: string
+      transactionOriginatorCode:
+        type: string
+      travelAgencyName:
+        type: string
+      travelDate:
+        type: string
+    required:
+    - accountNumber
+    - cardExpiryDate
+    - systemTraceAuditNumber
+    type: object
+  paymentmethod.WalletIn:
+    properties:
+      methodName:
+        example: 12345-34566-4567
+        type: string
+      name:
+        example: 12345-34566-4567
+        type: string
+      payerEmail:
+        example: johndoe@mail.com
+        type: string
+      payerName:
+        example: John Doe
+        type: string
+      payerPhone:
+        example: "+777888972"
+        type: string
+      providerReference:
+        example: JX8723LRET82LAOWEHXE
+        type: string
+    required:
+    - methodName
+    - name
+    - payerEmail
+    - payerName
+    - providerReference
+    type: object
+  paymentmethod.WalletOut:
+    properties:
+      fullData:
+        type: string
+      methodName:
+        type: string
+      name:
+        type: string
+      payerEmail:
+        type: string
+      payerName:
+        type: string
+      payerPhone:
+        type: string
+      providerReference:
+        type: string
+    type: object
+  pspcommon.PMDetail:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/pspcommon.PMDetailItems'
+        type: array
+      key:
+        type: string
+      optional:
+        type: boolean
+      value:
+        type: string
+    type: object
+  pspcommon.PMDetailItems:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  pspcommon.PaymentMethods:
+    properties:
+      detail:
+        $ref: '#/definitions/pspcommon.PMDetail'
+      name:
+        type: string
+    type: object
+  refund.In:
+    properties:
+      amount:
+        $ref: '#/definitions/amount.In'
+      authzReference:
+        example: 54trG7hthOD
+        type: string
+      reason:
+        example: duplicate
+        type: string
+      reasonDescription:
+        example: product not needed
+        type: string
+      reference:
+        example: CapRef1
+        type: string
+      token:
+        type: string
+    required:
+    - amount
+    - authzReference
+    - reason
+    - reference
+    type: object
+  refund.Out:
+    properties:
+      pspReference:
+        type: string
+      receiptReference:
+        example: Ref-1234
+        type: string
+      refusalReason:
+        example: rejected
+        type: string
+      status:
+        example: approved
+        type: string
+    required:
+    - receiptReference
+    - status
+    type: object
+  shopper.AccountInfo:
+    properties:
+      accountAgeIndicator:
+        example: lessThan30Days
+        type: string
+      accountChangeDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      accountChangeIndicator:
+        example: lessThan30Days
+        type: string
+      accountCreationDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      accountType:
+        example: web
+        type: string
+      cardAttemptDay:
+        example: 10
+        type: integer
+      deliveryAddressUsageDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      deliveryAddressUsageIndicator:
+        example: lessThan30Days
+        type: string
+      homePhone:
+        example: "199"
+        type: string
+      mobilePhone:
+        example: "199"
+        type: string
+      passwordChangeDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      passwordChangeIndicator:
+        example: lessThan30Days
+        type: string
+      pastTransactionDay:
+        example: 1
+        type: integer
+      pastTransactionYear:
+        example: 30
+        type: integer
+      paymentAccountAge:
+        example: "20"
+        type: string
+      paymentAccountIndicator:
+        example: lessThan30Days
+        type: string
+      purchasesLast6Months:
+        example: 15
+        type: integer
+      suspiciousActivity:
+        example: true
+        type: boolean
+      workPhone:
+        example: "199"
+        type: string
+    type: object
+  shopper.AccountInfoIn:
+    properties:
+      accountAgeIndicator:
+        example: lessThan30Days
+        type: string
+      accountChangeDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      accountChangeIndicator:
+        example: lessThan30Days
+        type: string
+      accountCreationDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      accountType:
+        example: web
+        type: string
+      cardAttemptDay:
+        example: 10
+        type: integer
+      deliveryAddressUsageDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      deliveryAddressUsageIndicator:
+        example: lessThan30Days
+        type: string
+      homePhone:
+        example: "199"
+        type: string
+      mobilePhone:
+        example: "199"
+        type: string
+      passwordChangeDate:
+        example: "2014-11-12T11:45:26.371Z"
+        type: string
+      passwordChangeIndicator:
+        example: lessThan30Days
+        type: string
+      pastTransactionDay:
+        example: 1
+        type: integer
+      pastTransactionYear:
+        example: 30
+        type: integer
+      paymentAccountAge:
+        example: "20"
+        type: string
+      paymentAccountIndicator:
+        example: lessThan30Days
+        type: string
+      purchasesLast6Months:
+        example: 15
+        type: integer
+      suspiciousActivity:
+        example: true
+        type: boolean
+      workPhone:
+        example: "199"
+        type: string
+    type: object
+  shopper.AddressIn:
+    properties:
+      city:
+        example: Berlin
+        type: string
+      country:
+        example: Germany
+        type: string
+      houseNumberName:
+        example: Laurens Cl
+        type: string
+      name:
+        example: John Doe
+        type: string
+      postalCode:
+        example: "872823"
+        type: string
+      stateProvince:
+        example: Berl
+        type: string
+      street:
+        example: Laurens
+        type: string
+    required:
+    - city
+    - country
+    - houseNumberName
+    - name
+    - postalCode
+    - stateProvince
+    - street
+    type: object
+  shopper.AddressOut:
+    properties:
+      city:
+        example: Berlin
+        type: string
+      country:
+        example: Germany
+        type: string
+      houseNumberName:
+        example: Laurens Cl
+        type: string
+      name:
+        example: John Doe
+        type: string
+      postalCode:
+        example: "872823"
+        type: string
+      stateProvince:
+        example: Berl
+        type: string
+      street:
+        example: Laurens
+        type: string
+    required:
+    - city
+    - country
+    - houseNumberName
+    - name
+    - postalCode
+    - stateProvince
+    - street
+    type: object
+  shopper.In:
+    properties:
+      email:
+        example: Karl@Great.com
+        type: string
+      name:
+        example: Karl Great
+        type: string
+      phoneNumber:
+        example: "+14158586273"
+        type: string
+      reference:
+        example: Jowk9238923kaower
+        type: string
+      socialSecurityNumber:
+        example: "823793298299823"
+        type: string
+    required:
+    - email
+    - name
+    - phoneNumber
+    - reference
+    - socialSecurityNumber
+    type: object
+  shopper.Out:
+    properties:
+      email:
+        example: Karl@Great.com
+        type: string
+      name:
+        example: Karl Great
+        type: string
+      phoneNumber:
+        example: "+14158586273"
+        type: string
+      reference:
+        example: Jowk9238923kaower
+        type: string
+    required:
+    - email
+    - name
+    - phoneNumber
+    - reference
+    type: object
+info:
+  contact: {}
+paths:
+  /browser-ip:
+    get:
+      produces:
+      - application/json
+      responses:
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: retrieves browser ip from request
+      tags:
+      - Others
+  /checkout:
+    post:
+      parameters:
+      - description: Cache data
+        in: body
+        name: cacheData
+        required: true
+        schema:
+          $ref: '#/definitions/authzrequest.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authzresponse.Out'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: temporarily saves authorise request data
+      tags:
+      - Payment Providers Flows
+  /checkout/{receiptReference}:
+    get:
+      parameters:
+      - description: Reference provided when caching the request
+        in: path
+        name: receiptReference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authzrequest.In'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: retrieves the cached data
+      tags:
+      - Payment Providers Flows
+  /three-ds-callback:
+    get:
+      parameters:
+      - description: Receipt reference of authz request
+        in: query
+        name: receiptReference
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/callback.In'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: retrieves psp 3ds callback data via receipt reference
+      tags:
+      - Payment Providers Flows
+    post:
+      parameters:
+      - description: Receipt reference of authz request
+        in: query
+        name: receiptReference
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: callback endpoint to persist and redirect
+      tags:
+      - Payment Providers Flows
+  /v1/cancel:
+    post:
+      parameters:
+      - description: Cancel Request
+        in: body
+        name: cancelRequest
+        required: true
+        schema:
+          $ref: '#/definitions/cancel.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cancel.Out'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Cancel the authorised payment
+      tags:
+      - Payment Providers Flows
+  /v1/capture:
+    post:
+      parameters:
+      - description: Capture Request
+        in: body
+        name: captureRequest
+        required: true
+        schema:
+          $ref: '#/definitions/capture.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/capture.Out'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Capture the authorised payment
+      tags:
+      - Payment Providers Flows
+  /v1/payment-methods:
+    get:
+      parameters:
+      - description: psp name
+        in: query
+        name: psp
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/pspcommon.PaymentMethods'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: GetPaymentMethods retrieves the payment methods supported by psp
+      tags:
+      - Payment Providers Flows
+  /v1/payment-providers:
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.PaymentProvider'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Save a Provider to the database
+      tags:
+      - Corporate Resources
+  /v1/payment/healthcheck:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.HealthCheckResponse'
+        "504":
+          description: Gateway Timeout
+          schema:
+            $ref: '#/definitions/apis.HealthCheckResponse'
+      summary: health check the application
+      tags:
+      - Health Checker
+  /v1/payments:
+    get:
+      parameters:
+      - description: number of records per page
+        in: query
+        name: limit
+        type: string
+      - description: stage of the payment, ALL or CAPTURE, CANCEL or REFUND
+        in: query
+        name: stage
+        type: string
+      - description: offset value
+        in: query
+        name: offset
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payment.Payment'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get basic summary of the payments
+      tags:
+      - Reporting APIs
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: updated
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: webhook to receive notifications
+      tags:
+      - Others
+  /v1/payments/{id}:
+    get:
+      parameters:
+      - description: Payment ID
+        in: path
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payment.Detail'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get detail info of the payment
+      tags:
+      - Reporting APIs
+  /v1/payments/api:
+    post:
+      parameters:
+      - description: Authz Request
+        in: body
+        name: authorisationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/authzrequest.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.Res'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Make payment based on API request only from any source
+      tags:
+      - Payment Providers Flows
+  /v1/payments/card:
+    post:
+      parameters:
+      - description: Authz Request
+        in: body
+        name: authorisationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/authzrequest.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authzresponse.Out'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Make Payment with Credit or Debit Card
+      tags:
+      - Payment Providers Flows
+  /v1/payments/card/{receiptReference}:
+    get:
+      parameters:
+      - description: Authorisation Response Receipt Reference
+        in: path
+        name: receiptReference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authzresponse.Out'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get the authorised payment
+      tags:
+      - Payment Providers Flows
+    patch:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Updates the payment status
+      tags:
+      - Payment Providers Flows
+  /v1/payments/generate-publickey:
+    post:
+      parameters:
+      - description: Generate Key Request
+        in: body
+        name: generateKeyRequest
+        required: true
+        schema:
+          $ref: '#/definitions/apis.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: generate public & private keys for a client
+      tags:
+      - Public Key Generator
+  /v1/payments/get-token-from-clientid:
+    post:
+      parameters:
+      - description: Gettoken  Request
+        in: body
+        name: getTokenRequest
+        required: true
+        schema:
+          $ref: '#/definitions/apis.TokenIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: generate token from the cipher text & clientid
+      tags:
+      - Public Key Generator
+  /v1/payments/web:
+    post:
+      parameters:
+      - description: Authz Request
+        in: body
+        name: authorisationRequest
+        required: true
+        schema:
+          $ref: '#/definitions/authzrequest.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.Res'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Make payment based on psp web components in client applications(s)
+      tags:
+      - Payment Providers Flows
+  /v1/refund:
+    post:
+      parameters:
+      - description: Refund Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/refund.In'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/refund.Out'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/apis.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Refund the authorised payment
+      tags:
+      - Payment Providers Flows
+  /web/callback:
+    get:
+      parameters:
+      - description: Receipt reference of authz request
+        in: query
+        name: receiptReference
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: callback endpoint to persist and redirect
+      tags:
+      - Payment Providers Flows
+  /webhook/{action}/{receiptReference}/url:
+    get:
+      parameters:
+      - description: Action Type (Capture/Cancel/Refund)
+        in: path
+        name: action
+        required: true
+        type: string
+      - description: Receipt Reference
+        in: path
+        name: receiptReference
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apis.Res'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "422":
+          description: Unprocessable Entity
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: retrieves the webhook url for a merchant
+      tags:
+      - Corporate Resources
+securityDefinitions:
+  ApiKeyAuth:
+    description: This service provides authorisation, capture, refund and cancel services
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
